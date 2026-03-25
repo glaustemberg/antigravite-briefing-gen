@@ -311,16 +311,17 @@ function NewBriefingPage({ clients, settings, onRefresh, onNavigate }) {
 
   // Generate briefing
   const handleGenerate = async () => {
+    const apiKey = settings.geminiApiKey
+    if (!apiKey) {
+      onNavigate('settings')
+      return
+    }
+
     setGenerating(true)
     setError('')
     setGeneratedText('')
 
     try {
-      const apiKey = settings.geminiApiKey
-      if (!apiKey) {
-        throw new Error('Configure sua API Key do Gemini nas Configurações antes de gerar.')
-      }
-
       const clientHistory = selectedClient ? `
 Cliente: ${selectedClient.name}
 Segmento: ${selectedClient.segment || 'N/A'}
