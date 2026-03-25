@@ -651,10 +651,35 @@ Notas: ${selectedClient.notes || 'N/A'}
             </div>
           </div>
 
+          {!settings.geminiApiKey && (
+            <div style={{ background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.35)', borderRadius: 'var(--radius-md)', padding: 'var(--space-md)', marginBottom: 'var(--space-lg)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-sm)', fontSize: 'var(--text-sm)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--accent-gold)' }}>
+                <Key size={16} />
+                <span>Nenhuma API Key configurada. A geração com IA não funcionará.</span>
+              </div>
+              <button
+                onClick={() => onNavigate('settings')}
+                style={{ background: 'var(--accent-gold)', color: '#000', border: 'none', borderRadius: 'var(--radius-sm)', padding: '6px 14px', fontSize: 'var(--text-xs)', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
+              >
+                Configurar agora
+              </button>
+            </div>
+          )}
+
           {error && (
-            <div style={{ background: 'var(--error-soft)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 'var(--radius-md)', padding: 'var(--space-md)', marginBottom: 'var(--space-lg)', display: 'flex', alignItems: 'center', gap: 'var(--space-sm)', color: 'var(--error)', fontSize: 'var(--text-sm)' }}>
-              <AlertCircle size={18} />
-              {error}
+            <div style={{ background: 'var(--error-soft)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 'var(--radius-md)', padding: 'var(--space-md)', marginBottom: 'var(--space-lg)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-sm)', color: 'var(--error)', fontSize: 'var(--text-sm)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <AlertCircle size={18} />
+                {error}
+              </div>
+              {error.toLowerCase().includes('api key') && (
+                <button
+                  onClick={() => onNavigate('settings')}
+                  style={{ background: 'var(--error)', color: '#fff', border: 'none', borderRadius: 'var(--radius-sm)', padding: '6px 14px', fontSize: 'var(--text-xs)', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
+                >
+                  Ir para Configurações
+                </button>
+              )}
             </div>
           )}
 
@@ -1019,7 +1044,14 @@ function SettingsPage({ settings, onSave }) {
         <p>Configure sua integração com IA e preferências do sistema</p>
       </div>
 
-      <div className="card" style={{ cursor: 'default', maxWidth: 640 }}>
+      <div className="card" style={{ cursor: 'default', maxWidth: 640, border: !settings.geminiApiKey ? '1px solid rgba(245,158,11,0.4)' : undefined }}>
+        {!settings.geminiApiKey && (
+          <div style={{ background: 'rgba(245,158,11,0.1)', borderRadius: 'var(--radius-md)', padding: 'var(--space-md)', marginBottom: 'var(--space-lg)', display: 'flex', alignItems: 'center', gap: 10, color: 'var(--accent-gold)', fontSize: 'var(--text-sm)', fontWeight: 500 }}>
+            <AlertCircle size={16} />
+            API Key não configurada — a geração com IA está desativada.
+          </div>
+        )}
+
         <div className="card-header">
           <h3 className="card-title" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Key size={18} style={{ color: 'var(--accent-gold)' }} />
@@ -1029,6 +1061,7 @@ function SettingsPage({ settings, onSave }) {
 
         <p style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', marginBottom: 'var(--space-lg)' }}>
           Para gerar briefings com IA, você precisa de uma API key gratuita do Google AI Studio.
+          É rápido, gratuito e não precisa de cartão de crédito.
         </p>
 
         <div className="form-group">
@@ -1041,6 +1074,7 @@ function SettingsPage({ settings, onSave }) {
               onChange={e => setApiKey(e.target.value)}
               placeholder="AIzaSy..."
               style={{ paddingRight: 80 }}
+              autoFocus={!settings.geminiApiKey}
             />
             <button
               className="btn btn-ghost btn-sm"
@@ -1050,17 +1084,22 @@ function SettingsPage({ settings, onSave }) {
               {showKey ? 'Ocultar' : 'Mostrar'}
             </button>
           </div>
-          <div className="form-hint">
-            Obtenha sua chave em{' '}
-            <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          <div className="form-hint" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span>Obtenha sua chave grátis em</span>
+            <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'var(--accent-primary)', fontWeight: 500 }}>
               aistudio.google.com/apikey <ExternalLink size={12} />
             </a>
           </div>
         </div>
 
-        <button className="btn btn-primary" onClick={handleSave} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <button
+          className="btn btn-primary"
+          onClick={handleSave}
+          disabled={!apiKey.trim()}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, opacity: !apiKey.trim() ? 0.5 : 1 }}
+        >
           {saved ? <Check size={16} /> : <Save size={16} />}
-          {saved ? 'Salvo com sucesso!' : 'Salvar Configurações'}
+          {saved ? 'Salvo com sucesso!' : 'Salvar API Key'}
         </button>
       </div>
 
