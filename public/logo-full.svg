@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#818cf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f1f5f9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cbd5e1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Icon -->
+  <rect x="4" y="8" width="64" height="64" rx="16" fill="url(#grad1)"/>
+  <rect x="18" y="16" width="28" height="36" rx="3.5" fill="white" opacity="0.15"/>
+  <rect x="18" y="16" width="28" height="36" rx="3.5" fill="none" stroke="white" stroke-width="1.5" opacity="0.35"/>
+  <line x1="24" y1="26" x2="40" y2="26" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+  <line x1="24" y1="32" x2="40" y2="32" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+  <line x1="24" y1="38" x2="33" y2="38" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+  <circle cx="50" cy="26" r="11" fill="url(#grad2)" filter="url(#glow)"/>
+  <path d="M50 31 L50 21 M46.5 24.5 L50 21 L53.5 24.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Wordmark -->
+  <text x="82" y="38" font-family="'Outfit', 'Inter', system-ui, sans-serif" font-size="22" font-weight="700" fill="url(#textGrad)" letter-spacing="-0.5">ANTIGRAVITE</text>
+  <!-- Divider line -->
+  <line x1="83" y1="46" x2="310" y2="46" stroke="#6366f1" stroke-width="1" opacity="0.4"/>
+  <!-- Subtitle -->
+  <text x="83" y="62" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="400" fill="#6366f1" letter-spacing="3" opacity="0.9">BRIEFING GENERATOR</text>
+</svg>

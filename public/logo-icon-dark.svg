@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#818cf8"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Document shape - no background, for dark/transparent use -->
+  <rect x="12" y="8" width="38" height="50" rx="5" fill="#1e1b4b" stroke="url(#g1)" stroke-width="2"/>
+  <!-- Lines -->
+  <line x1="20" y1="22" x2="42" y2="22" stroke="#818cf8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="20" y1="30" x2="42" y2="30" stroke="#818cf8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="20" y1="38" x2="34" y2="38" stroke="#818cf8" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Floating orb -->
+  <circle cx="58" cy="22" r="16" fill="url(#g2)" opacity="0.2" filter="url(#glow)"/>
+  <circle cx="58" cy="22" r="11" fill="url(#g2)" filter="url(#glow)"/>
+  <path d="M58 28 L58 16 M54 20 L58 16 L62 20" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
